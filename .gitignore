@@ -1,0 +1,13 @@
+# Created by .ignore support plugin (hsz.mobi)
+# idea related
+.idea
+*.iml
+
+# release configuration
+*/src/conf/rls/*.yml
+
+# target
+target
+
+# ignore java version control
+.java-version
