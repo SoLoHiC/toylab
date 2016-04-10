@@ -22,7 +22,8 @@ import lombok.Data;
 @NamedQueries({
     @NamedQuery(
         name = "me.chuck.toylab.blog.db.post.PostDO.findAll",
-        query = "SELECT post FROM PostDO post"
+        query = "SELECT post FROM PostDO post " +
+            "ORDER BY post.id DESC"
     )
 })
 @Data

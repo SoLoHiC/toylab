@@ -26,6 +26,10 @@ public class PostDAO extends AbstractDAO<PostDO> {
   }
 
   public List<PostDO> findAll(int page, int pageSize) {
-    return list(namedQuery("me.chuck.toylab.blog.db.post.PostDO.findAll"));
+    return list(
+        namedQuery("me.chuck.toylab.blog.db.post.PostDO.findAll")
+            .setFirstResult(page * pageSize)
+            .setMaxResults(pageSize)
+    );
   }
 }
