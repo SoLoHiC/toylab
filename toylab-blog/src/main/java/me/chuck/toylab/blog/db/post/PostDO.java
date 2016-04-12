@@ -31,7 +31,7 @@ public class PostDO {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private int id;
 
   @Column(name = "title", nullable = false)
   private String title;

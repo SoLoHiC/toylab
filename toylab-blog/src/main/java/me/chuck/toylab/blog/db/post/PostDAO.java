@@ -21,7 +21,7 @@ public class PostDAO extends AbstractDAO<PostDO> {
     return Optional.ofNullable(persist(postDO));
   }
 
-  public Optional<PostDO> findById(long id) {
+  public Optional<PostDO> findById(int id) {
     return Optional.ofNullable(get(id));
   }
 

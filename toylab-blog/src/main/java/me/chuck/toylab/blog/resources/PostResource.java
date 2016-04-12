@@ -16,7 +16,6 @@ import javax.ws.rs.core.Response;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
-import io.dropwizard.jersey.params.LongParam;
 import me.chuck.toylab.blog.db.post.PostDAO;
 import me.chuck.toylab.blog.db.post.PostDO;
 
@@ -48,7 +47,7 @@ public class PostResource {
   @GET
   @Path("/{postId}")
   @UnitOfWork
-  public PostDO getPost(@PathParam("postId")LongParam postId) {
+  public PostDO getPost(@PathParam("postId")IntParam postId) {
     return findSafely(postId.get());
   }
 
@@ -59,7 +58,7 @@ public class PostResource {
     return postDAO.findAll(page.get(), pageSize.get());
   }
 
-  private PostDO findSafely(long postId) {
+  private PostDO findSafely(int postId) {
     return postDAO.findById(postId).orElseThrow(() -> new NotFoundException("no such post!"));
   }
 }
