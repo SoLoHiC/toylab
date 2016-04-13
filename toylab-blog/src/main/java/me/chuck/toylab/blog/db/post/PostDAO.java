@@ -1,5 +1,7 @@
 package me.chuck.toylab.blog.db.post;
 
+import com.google.inject.Inject;
+
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import io.dropwizard.hibernate.AbstractDAO;
  */
 public class PostDAO extends AbstractDAO<PostDO> {
 
+  @Inject
   public PostDAO(SessionFactory factory) {
     super(factory);
   }

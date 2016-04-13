@@ -1,18 +1,18 @@
 package me.chuck.toylab.blog;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.text.SimpleDateFormat;
 
 import io.dropwizard.Application;
-import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import me.chuck.toylab.blog.db.post.PostDAO;
-import me.chuck.toylab.blog.db.post.PostDO;
-import me.chuck.toylab.blog.db.user.UserDAO;
-import me.chuck.toylab.blog.db.user.UserDO;
+import me.chuck.toylab.blog.db.DBModule;
 import me.chuck.toylab.blog.resources.PostResource;
 import me.chuck.toylab.blog.resources.UserResource;
 
@@ -22,13 +22,7 @@ import me.chuck.toylab.blog.resources.UserResource;
  */
 public class BlogApplication extends Application<BlogConfiguration> {
 
-  private final HibernateBundle<BlogConfiguration> hibernateBundle =
-      new HibernateBundle<BlogConfiguration>(PostDO.class, UserDO.class) {
-        @Override
-        public DataSourceFactory getDataSourceFactory(BlogConfiguration blogConfiguration) {
-          return blogConfiguration.getDatabase();
-        }
-      };
+  private Injector injector;
 
   @Override
   public void initialize(Bootstrap<BlogConfiguration> bootstrap) {
@@ -36,19 +30,22 @@ public class BlogApplication extends Application<BlogConfiguration> {
         .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
         .setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
-    bootstrap.addBundle(hibernateBundle);
+    injector = Guice.createInjector(
+        new RootModule(),
+        new DBModule());
+
+    bootstrap.addBundle(injector.getInstance(HibernateBundle.class));
+
   }
 
   @Override
   public void run(BlogConfiguration configuration, Environment environment) throws Exception {
-    final PostDAO postDAO = new PostDAO(hibernateBundle.getSessionFactory());
-    final UserDAO userDAO = new UserDAO(hibernateBundle.getSessionFactory());
-
-    environment.jersey().register(new PostResource(postDAO));
-    environment.jersey().register(new UserResource(userDAO));
+    environment.jersey().register(injector.getInstance(PostResource.class));
+    environment.jersey().register(injector.getInstance(UserResource.class));
   }
 
   @Override
+  @NotEmpty
   public String getName() {
     return "toylab-blog";
   }

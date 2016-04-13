@@ -1,5 +1,7 @@
 package me.chuck.toylab.blog.resources;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.sun.jersey.api.NotFoundException;
 
 import java.util.List;
@@ -29,7 +31,8 @@ public class PostResource {
 
   private final PostDAO postDAO;
 
-  public PostResource(PostDAO postDAO) {
+  @Inject
+  public PostResource(@Named("postDAO") PostDAO postDAO) {
     this.postDAO = postDAO;
   }
 

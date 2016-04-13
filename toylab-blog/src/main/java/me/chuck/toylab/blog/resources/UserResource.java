@@ -1,5 +1,7 @@
 package me.chuck.toylab.blog.resources;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.sun.jersey.api.NotFoundException;
 
 import java.util.Optional;
@@ -27,7 +29,8 @@ public class UserResource {
 
   private final UserDAO userDAO;
 
-  public UserResource(UserDAO dao) {
+  @Inject
+  public UserResource(@Named("userDAO")UserDAO dao) {
     this.userDAO = dao;
   }
 

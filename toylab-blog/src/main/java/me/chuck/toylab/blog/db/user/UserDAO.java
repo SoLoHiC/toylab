@@ -1,6 +1,7 @@
 package me.chuck.toylab.blog.db.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.inject.Inject;
 
 import org.hibernate.SessionFactory;
 
@@ -15,7 +16,10 @@ import me.chuck.toylab.blog.core.User;
  */
 public class UserDAO extends AbstractDAO<UserDO> {
 
-  private static final ObjectMapper mapper = new ObjectMapper();
+  @Inject
+  private ObjectMapper mapper;
+
+  @Inject
   public UserDAO(SessionFactory factory) {
     super(factory);
   }
