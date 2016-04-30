@@ -7,6 +7,7 @@ import com.sun.jersey.api.NotFoundException;
 import java.util.Optional;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -17,7 +18,7 @@ import javax.ws.rs.core.Response;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 import me.chuck.toylab.blog.core.User;
-import me.chuck.toylab.blog.db.user.UserDAO;
+import me.chuck.toylab.blog.db.UserDAO;
 
 /**
  * @author chuck
@@ -40,6 +41,17 @@ public class UserResource {
     Optional<User> created = userDAO.create(user);
     if (created.isPresent()) {
       return Response.status(Response.Status.CREATED).entity(created.get()).build();
+    } else {
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    }
+  }
+
+  @POST
+  @UnitOfWork
+  public Response updateUser(User user) {
+    Optional<User> updated = userDAO.update(user);
+    if (updated.isPresent()) {
+      return Response.status(Response.Status.ACCEPTED).entity(updated.get()).build();
     } else {
       return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }

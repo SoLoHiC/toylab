@@ -2,6 +2,7 @@ package me.chuck.toylab.blog.db;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.name.Names;
 
 import org.hibernate.SessionFactory;
@@ -9,10 +10,10 @@ import org.hibernate.SessionFactory;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import me.chuck.toylab.blog.BlogConfiguration;
-import me.chuck.toylab.blog.db.post.PostDAO;
-import me.chuck.toylab.blog.db.post.PostDO;
-import me.chuck.toylab.blog.db.user.UserDAO;
-import me.chuck.toylab.blog.db.user.UserDO;
+import me.chuck.toylab.blog.db.impl.post.PostDAOImpl;
+import me.chuck.toylab.blog.db.impl.post.PostDO;
+import me.chuck.toylab.blog.db.impl.user.UserDAOImpl;
+import me.chuck.toylab.blog.db.impl.user.UserDO;
 
 /**
  * @author chuck
@@ -30,8 +31,8 @@ public class DBModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(PostDAO.class).annotatedWith(Names.named("postDAO")).to(PostDAO.class);
-    bind(UserDAO.class).annotatedWith(Names.named("userDAO")).to(UserDAO.class);
+    bind(PostDAO.class).annotatedWith(Names.named("postDAO")).to(PostDAOImpl.class).in(Singleton.class);
+    bind(UserDAO.class).annotatedWith(Names.named("userDAO")).to(UserDAOImpl.class).in(Singleton.class);
   }
 
   @Provides

@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db.user;
+package me.chuck.toylab.blog.db.impl.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -9,26 +9,35 @@ import java.util.Optional;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import me.chuck.toylab.blog.core.User;
+import me.chuck.toylab.blog.db.UserDAO;
 
 /**
  * @author chuck
  * @since 4/12/16
  */
-public class UserDAO extends AbstractDAO<UserDO> {
+public class UserDAOImpl extends AbstractDAO<UserDO> implements UserDAO {
 
   @Inject
   private ObjectMapper mapper;
 
   @Inject
-  public UserDAO(SessionFactory factory) {
+  public UserDAOImpl(SessionFactory factory) {
     super(factory);
   }
 
+  @Override
   public Optional<User> create(User user) {
     UserDO userDO = mapper.convertValue(user, UserDO.class);
     return Optional.ofNullable(mapper.convertValue(persist(userDO), User.class));
   }
 
+  @Override
+  public Optional<User> update(User user) {
+    UserDO userDO = mapper.convertValue(user, UserDO.class);
+    return Optional.ofNullable(mapper.convertValue(persist(userDO), User.class));
+  }
+
+  @Override
   public Optional<User> findById(int id) {
     return Optional.ofNullable(mapper.convertValue(get(id), User.class));
   }

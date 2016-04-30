@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db.post;
+package me.chuck.toylab.blog.db.impl.post;
 
 import java.util.Date;
 
@@ -21,7 +21,7 @@ import lombok.Data;
 @Table(name = "post")
 @NamedQueries({
     @NamedQuery(
-        name = "me.chuck.toylab.blog.db.post.PostDO.findAll",
+        name = "me.chuck.toylab.blog.db.impl.post.PostDO.findAll",
         query = "SELECT post FROM PostDO post " +
             "ORDER BY post.id DESC"
     )

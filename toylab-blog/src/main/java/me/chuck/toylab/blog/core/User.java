@@ -32,6 +32,7 @@ public class User {
 
 
   public enum Auth {
+    UNKNOWN(-1),
     GUEST(1),
     ADMIN(2),
     ;
@@ -49,7 +50,7 @@ public class User {
           return auth;
         }
       }
-      return null;
+      return UNKNOWN;
     }
 
     @JsonValue
