@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db.impl.post;
+package me.chuck.toylab.blog.store.impl.mysql.post;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import me.chuck.toylab.blog.core.Post;
-import me.chuck.toylab.blog.db.PostDAO;
+import me.chuck.toylab.blog.store.PostDAO;
 
 /**
  * @author chuck

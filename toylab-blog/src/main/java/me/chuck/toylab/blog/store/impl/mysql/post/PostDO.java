@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db.impl.post;
+package me.chuck.toylab.blog.store.impl.mysql.post;
 
 import java.util.Date;
 

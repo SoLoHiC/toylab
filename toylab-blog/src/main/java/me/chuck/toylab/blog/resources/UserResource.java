@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 import me.chuck.toylab.blog.core.User;
-import me.chuck.toylab.blog.db.UserDAO;
+import me.chuck.toylab.blog.store.UserDAO;
 
 /**
  * @author chuck

@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db;
+package me.chuck.toylab.blog.store;
 
 import java.util.Optional;
 

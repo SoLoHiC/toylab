@@ -12,7 +12,7 @@ import io.dropwizard.Application;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import me.chuck.toylab.blog.db.DBModule;
+import me.chuck.toylab.blog.store.DBModule;
 import me.chuck.toylab.blog.resources.PostResource;
 import me.chuck.toylab.blog.resources.UserResource;
 

@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 import me.chuck.toylab.blog.core.Post;
-import me.chuck.toylab.blog.db.PostDAO;
+import me.chuck.toylab.blog.store.PostDAO;
 
 /**
  * @author chuck

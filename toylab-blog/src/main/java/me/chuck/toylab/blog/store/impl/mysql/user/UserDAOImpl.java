@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db.impl.user;
+package me.chuck.toylab.blog.store.impl.mysql.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.inject.Inject;
@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import me.chuck.toylab.blog.core.User;
-import me.chuck.toylab.blog.db.UserDAO;
+import me.chuck.toylab.blog.store.UserDAO;
 
 /**
  * @author chuck

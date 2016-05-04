@@ -1,4 +1,4 @@
-package me.chuck.toylab.blog.db;
+package me.chuck.toylab.blog.store;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -10,10 +10,10 @@ import org.hibernate.SessionFactory;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import me.chuck.toylab.blog.BlogConfiguration;
-import me.chuck.toylab.blog.db.impl.post.PostDAOImpl;
-import me.chuck.toylab.blog.db.impl.post.PostDO;
-import me.chuck.toylab.blog.db.impl.user.UserDAOImpl;
-import me.chuck.toylab.blog.db.impl.user.UserDO;
+import me.chuck.toylab.blog.store.impl.mysql.post.PostDAOImpl;
+import me.chuck.toylab.blog.store.impl.mysql.post.PostDO;
+import me.chuck.toylab.blog.store.impl.mysql.user.UserDAOImpl;
+import me.chuck.toylab.blog.store.impl.mysql.user.UserDO;
 
 /**
  * @author chuck
