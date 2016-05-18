@@ -11,6 +11,7 @@ import me.chuck.toylab.blog.core.Post;
  */
 public interface PostDAO {
 
+  // TODO: change return type from Post to PostDO
   Optional<Post> create(Post post);
   Optional<Post> update(Post post);
   Optional<Post> findById(int id);
