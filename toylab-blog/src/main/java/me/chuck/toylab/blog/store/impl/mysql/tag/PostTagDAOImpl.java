@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 
 import org.hibernate.SessionFactory;
 
+import java.util.List;
 import java.util.Optional;
 
 import io.dropwizard.hibernate.AbstractDAO;
@@ -25,34 +26,43 @@ public class PostTagDAOImpl extends AbstractDAO<PostTagDO> implements PostTagDAO
     super(sessionFactory);
   }
 
-  // TODO: implement methods
   @Override
   public Optional<PostTagDO> create(PostTagDO postTag) {
-    return null;
+    return Optional.ofNullable(persist(postTag));
   }
 
   @Override
   public Optional<PostTagDO> update(PostTagDO postTag) {
-    return null;
+    return Optional.ofNullable(persist(postTag));
   }
 
   @Override
   public Optional<PostTagDO> findById(int id) {
-    return null;
+    return Optional.ofNullable(get(id));
   }
 
   @Override
-  public Optional<PostTagDO> findAll(int page, int size) {
-    return null;
+  public List<PostTagDO> findAll(int page, int size) {
+    return list(
+        namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.findAll")
+            .setFirstResult(page * size)
+            .setMaxResults(size)
+    );
   }
 
   @Override
-  public Optional<PostTagDO> findByPostId(int id) {
-    return null;
+  public List<PostTagDO> findByPostId(int id) {
+    return list(
+        namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.findByPostId")
+            .setParameter("postId", id)
+    );
   }
 
   @Override
-  public Optional<PostTagDO> findByTagId(int id) {
-    return null;
+  public List<PostTagDO> findByTagId(int id) {
+    return list(
+        namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.findByTagId")
+            .setParameter("tagId", id)
+    );
   }
 }

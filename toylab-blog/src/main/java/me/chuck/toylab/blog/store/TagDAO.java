@@ -14,5 +14,5 @@ public interface TagDAO {
   Optional<TagDO> create(TagDO tag);
   Optional<TagDO> update(TagDO tag);
   Optional<TagDO> findById(int id);
-  List<TagDO> paginate(int page, int size);
+  List<TagDO> findAll(int page, int size);
 }

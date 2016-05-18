@@ -26,24 +26,27 @@ public class TagDAOImpl extends AbstractDAO<TagDO> implements TagDAO {
     super(sessionFactory);
   }
 
-  // TODO: implement methods
   @Override
   public Optional<TagDO> create(TagDO tag) {
-    return null;
+    return Optional.ofNullable(persist(tag));
   }
 
   @Override
   public Optional<TagDO> update(TagDO tag) {
-    return null;
+    return Optional.ofNullable(persist(tag));
   }
 
   @Override
   public Optional<TagDO> findById(int id) {
-    return null;
+    return Optional.ofNullable(get(id));
   }
 
   @Override
-  public List<TagDO> paginate(int page, int size) {
-    return null;
+  public List<TagDO> findAll(int page, int size) {
+    return list(
+        namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findAll")
+            .setFirstResult(page * size)
+            .setMaxResults(size)
+    );
   }
 }

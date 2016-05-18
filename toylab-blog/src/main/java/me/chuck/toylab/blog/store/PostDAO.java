@@ -3,7 +3,7 @@ package me.chuck.toylab.blog.store;
 import java.util.List;
 import java.util.Optional;
 
-import me.chuck.toylab.blog.core.Post;
+import me.chuck.toylab.blog.store.impl.mysql.post.PostDO;
 
 /**
  * @author chuck
@@ -11,10 +11,9 @@ import me.chuck.toylab.blog.core.Post;
  */
 public interface PostDAO {
 
-  // TODO: change return type from Post to PostDO
-  Optional<Post> create(Post post);
-  Optional<Post> update(Post post);
-  Optional<Post> findById(int id);
-  List<Post> findAll(int page, int pageSize);
+  Optional<PostDO> create(PostDO post);
+  Optional<PostDO> update(PostDO post);
+  Optional<PostDO> findById(int id);
+  List<PostDO> findAll(int page, int pageSize);
 
 }

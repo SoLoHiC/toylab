@@ -1,7 +1,6 @@
 package me.chuck.toylab.blog.resources;
 
 import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.sun.jersey.api.NotFoundException;
 
 import java.util.List;
@@ -20,7 +19,7 @@ import javax.ws.rs.core.Response;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 import me.chuck.toylab.blog.core.Post;
-import me.chuck.toylab.blog.store.PostDAO;
+import me.chuck.toylab.blog.core.repos.PostRepo;
 
 /**
  * @author chuck
@@ -30,17 +29,17 @@ import me.chuck.toylab.blog.store.PostDAO;
 @Produces(MediaType.APPLICATION_JSON)
 public class PostResource {
 
-  private final PostDAO postDAO;
+  private PostRepo postRepo;
 
   @Inject
-  public PostResource(@Named("postDAO") PostDAO postDAO) {
-    this.postDAO = postDAO;
+  public PostResource(PostRepo postRepo) {
+    this.postRepo = postRepo;
   }
 
   @PUT
   @UnitOfWork
   public Response createPost(Post post) {
-    Optional<Post> created = postDAO.create(post);
+    Optional<Post> created = postRepo.create(post);
     if (created.isPresent()) {
       return Response.status(Response.Status.CREATED).entity(created.get()).build();
     } else {
@@ -51,7 +50,7 @@ public class PostResource {
   @POST
   @UnitOfWork
   public Response updatePost(Post post) {
-    Optional<Post> updated = postDAO.update(post);
+    Optional<Post> updated = postRepo.update(post);
     if (updated.isPresent()) {
       return Response.status(Response.Status.ACCEPTED).entity(updated.get()).build();
     } else {
@@ -70,10 +69,10 @@ public class PostResource {
   @UnitOfWork
   public List<Post> paginatePost(
       @QueryParam("page") IntParam page, @QueryParam("pageSize") IntParam pageSize) {
-    return postDAO.findAll(page.get(), pageSize.get());
+    return postRepo.findAll(page.get(), pageSize.get());
   }
 
   private Post findSafely(int postId) {
-    return postDAO.findById(postId).orElseThrow(() -> new NotFoundException("no such post!"));
+    return postRepo.findById(postId).orElseThrow(() -> new NotFoundException("no such post!"));
   }
 }

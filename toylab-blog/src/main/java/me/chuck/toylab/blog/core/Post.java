@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 import lombok.Data;
 
@@ -25,8 +25,7 @@ public class Post {
 
   private String authorName;
 
-  // TODO: need to add Repo layer aggregating domain model
-  private Set<PostTag> tags;
+  private List<PostTag> tags;
 
   private Status status;
 

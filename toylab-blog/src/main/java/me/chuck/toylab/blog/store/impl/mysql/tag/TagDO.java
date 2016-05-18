@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -15,9 +17,16 @@ import lombok.Data;
  * @author chuck
  * @since 5/18/16
  */
+@Data
 @Entity
 @Table(name = "tag")
-@Data
+@NamedQueries({
+    @NamedQuery(
+        name = "me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findAll",
+        query = "SELECT tag FROM TagDO tag " +
+            "ORDER BY tag.id DESC "
+    )
+})
 public class TagDO {
 
   @Id
