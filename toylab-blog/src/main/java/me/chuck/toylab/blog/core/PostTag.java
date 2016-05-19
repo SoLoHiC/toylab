@@ -1,5 +1,7 @@
 package me.chuck.toylab.blog.core;
 
+import com.google.common.base.MoreObjects;
+
 import java.util.Date;
 
 import lombok.Data;
@@ -22,4 +24,16 @@ public class PostTag {
   private Date gmtCreated;
 
   private Date gmtUpdated;
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("id", id)
+        .add("postId", postId)
+        .add("tagId", tagId)
+        .add("tag", tag.toString())
+        .add("gmtCreated", gmtCreated)
+        .add("gmtUpdated", gmtUpdated)
+        .toString();
+  }
 }

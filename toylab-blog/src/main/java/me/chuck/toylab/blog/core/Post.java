@@ -2,6 +2,7 @@ package me.chuck.toylab.blog.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,21 @@ public class Post {
 
   private Date gmtUpdated;
 
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("id", id)
+        .add("title", title)
+        .add("body", body)
+        .add("authorId", authorId)
+        .add("authorName", authorName)
+        .add("tags", tags)
+        .add("status", status)
+        .add("gmtCreated", gmtCreated)
+        .add("gmtUpdated", gmtUpdated)
+        .toString();
+  }
+
   public enum Status {
     UNKNOWN(-1),
     DRAFT(0),
@@ -60,6 +76,14 @@ public class Post {
     @JsonValue
     public int value() {
       return this.value;
+    }
+
+    @Override
+    public String toString() {
+      return MoreObjects.toStringHelper(this)
+          .add("name", name())
+          .add("value", value)
+          .toString();
     }
   }
 }

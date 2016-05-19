@@ -2,6 +2,7 @@ package me.chuck.toylab.blog.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
 import java.util.Date;
 
@@ -30,6 +31,17 @@ public class User {
 
   private Date gmtUpdated;
 
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("id", id)
+        .add("nickName", nickName)
+        .add("fullname", fullName)
+        .add("auth", auth.toString())
+        .add("gmtCreated", gmtCreated)
+        .add("gmtUpdated", gmtUpdated)
+        .toString();
+  }
 
   public enum Auth {
     UNKNOWN(-1),
@@ -37,16 +49,16 @@ public class User {
     ADMIN(2),
     ;
 
-    private final int v;
+    private final int value;
 
     Auth(int v) {
-      this.v = v;
+      this.value = v;
     }
 
     @JsonCreator
     public static @Nullable Auth of(int x) {
       for (Auth auth : Auth.values()) {
-        if (auth.v == x) {
+        if (auth.value == x) {
           return auth;
         }
       }
@@ -55,7 +67,15 @@ public class User {
 
     @JsonValue
     public int value() {
-      return this.v;
+      return this.value;
+    }
+
+    @Override
+    public String toString() {
+      return MoreObjects.toStringHelper(this)
+          .add("name", name())
+          .add("value", value)
+          .toString();
     }
   }
 }

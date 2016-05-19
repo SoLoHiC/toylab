@@ -8,16 +8,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
 import me.chuck.toylab.blog.core.Post;
 import me.chuck.toylab.blog.core.PostTag;
 import me.chuck.toylab.blog.store.PostDAO;
 import me.chuck.toylab.blog.store.PostTagDAO;
 import me.chuck.toylab.blog.store.impl.mysql.post.PostDO;
+import me.chuck.toylab.blog.store.impl.mysql.tag.PostTagDO;
 
 /**
  * @author chuck
  * @since 5/19/16
  */
+@Slf4j
 public class PostRepo {
 
   @Inject
@@ -34,13 +37,35 @@ public class PostRepo {
   }
 
   public Optional<Post> create(Post post) {
-    // TODO: create post, should check tag existence when adding tags for post
-    return null;
+    PostDO postDO = mapper.convertValue(post, PostDO.class);
+    Optional<PostDO> createdDO = postDAO.create(postDO);
+    if (createdDO.isPresent()) {
+      Post created = mapper.convertValue(createdDO.get(), Post.class);
+      created.setTags(post.getTags());
+      created.getTags().stream()
+          .forEach(postTag -> {
+            postTag.setPostId(created.getId());
+            PostTagDO postTagDO = mapper.convertValue(postTag, PostTagDO.class);
+            Optional<PostTagDO> createdTagDO = postTagDAO.create(postTagDO);
+            if (createdTagDO.isPresent()) {
+              postTag = mapper.convertValue(createdTagDO, PostTag.class);
+            } else {
+              log.warn(String.format("failed to create postTag: %s for post: %s", postTag, created));
+            }
+          });
+      return Optional.of(created);
+    }
+    return Optional.empty();
   }
 
   public Optional<Post> update(Post post) {
-    // TODO: update post, should check tag existence when adding tags for post
-    return null;
+    PostDO postDO = mapper.convertValue(post, PostDO.class);
+    Optional<PostDO> createdDO = postDAO.update(postDO);
+    if (createdDO.isPresent()) {
+      Post created = mapper.convertValue(createdDO, Post.class);
+      return Optional.ofNullable(created);
+    }
+    return Optional.empty();
   }
 
   public Optional<Post> findById(int id) {

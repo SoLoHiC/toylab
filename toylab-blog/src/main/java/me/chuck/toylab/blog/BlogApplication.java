@@ -12,6 +12,7 @@ import io.dropwizard.Application;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import me.chuck.toylab.blog.core.CoreModule;
 import me.chuck.toylab.blog.store.DBModule;
 import me.chuck.toylab.blog.resources.PostResource;
 import me.chuck.toylab.blog.resources.UserResource;
@@ -32,6 +33,7 @@ public class BlogApplication extends Application<BlogConfiguration> {
 
     injector = Guice.createInjector(
         new RootModule(),
+        new CoreModule(),
         new DBModule());
 
     bootstrap.addBundle(injector.getInstance(HibernateBundle.class));

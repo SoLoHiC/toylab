@@ -68,7 +68,8 @@ public class PostResource {
   @GET
   @UnitOfWork
   public List<Post> paginatePost(
-      @QueryParam("page") IntParam page, @QueryParam("pageSize") IntParam pageSize) {
+      @QueryParam("page") IntParam page,
+      @QueryParam("pageSize") IntParam pageSize) {
     return postRepo.findAll(page.get(), pageSize.get());
   }
 

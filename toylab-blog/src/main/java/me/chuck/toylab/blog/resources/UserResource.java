@@ -17,8 +17,8 @@ import javax.ws.rs.core.Response;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
-import me.chuck.toylab.blog.core.User;
 import me.chuck.toylab.blog.store.UserDAO;
+import me.chuck.toylab.blog.store.impl.mysql.user.UserDO;
 
 /**
  * @author chuck
@@ -37,8 +37,8 @@ public class UserResource {
 
   @PUT
   @UnitOfWork
-  public Response createUser(User user) {
-    Optional<User> created = userDAO.create(user);
+  public Response createUser(UserDO user) {
+    Optional<UserDO> created = userDAO.create(user);
     if (created.isPresent()) {
       return Response.status(Response.Status.CREATED).entity(created.get()).build();
     } else {
@@ -48,8 +48,8 @@ public class UserResource {
 
   @POST
   @UnitOfWork
-  public Response updateUser(User user) {
-    Optional<User> updated = userDAO.update(user);
+  public Response updateUser(UserDO user) {
+    Optional<UserDO> updated = userDAO.update(user);
     if (updated.isPresent()) {
       return Response.status(Response.Status.ACCEPTED).entity(updated.get()).build();
     } else {
@@ -60,7 +60,7 @@ public class UserResource {
   @GET
   @Path("/{userId}")
   @UnitOfWork
-  public User getUser(@PathParam("userId")IntParam userId) {
+  public UserDO getUser(@PathParam("userId")IntParam userId) {
     return userDAO.findById(userId.get()).orElseThrow(() -> new NotFoundException("no such user!"));
   }
 }
