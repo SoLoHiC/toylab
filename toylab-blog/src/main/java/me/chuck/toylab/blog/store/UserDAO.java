@@ -10,7 +10,6 @@ import me.chuck.toylab.blog.store.impl.mysql.user.UserDO;
  */
 public interface UserDAO {
 
-  // TODO: change return type from User to UserDO
   Optional<UserDO> create(UserDO user);
   Optional<UserDO> update(UserDO user);
   Optional<UserDO> findById(int id);
