@@ -25,6 +25,10 @@ import lombok.Data;
         name = "me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findAll",
         query = "SELECT tag FROM TagDO tag " +
             "ORDER BY tag.id DESC "
+    ),
+    @NamedQuery(
+        name = "me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findByName",
+        query = "SELECT tag FROM TagDO tag"
     )
 })
 public class TagDO {
@@ -38,6 +42,9 @@ public class TagDO {
 
   @Column(name = "color", nullable = false)
   private int color;
+
+  @Column(name = "tag_status", nullable = false)
+  private int status;
 
   @Column(name = "gmt_created", nullable = false)
   private Date gmtCreated;

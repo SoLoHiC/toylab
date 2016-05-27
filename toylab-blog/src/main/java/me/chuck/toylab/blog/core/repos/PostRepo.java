@@ -10,11 +10,9 @@ import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 import me.chuck.toylab.blog.core.Post;
-import me.chuck.toylab.blog.core.PostTag;
 import me.chuck.toylab.blog.store.PostDAO;
 import me.chuck.toylab.blog.store.PostTagDAO;
 import me.chuck.toylab.blog.store.impl.mysql.post.PostDO;
-import me.chuck.toylab.blog.store.impl.mysql.tag.PostTagDO;
 
 /**
  * @author chuck
@@ -41,18 +39,18 @@ public class PostRepo {
     Optional<PostDO> createdDO = postDAO.create(postDO);
     if (createdDO.isPresent()) {
       Post created = mapper.convertValue(createdDO.get(), Post.class);
-      created.setTags(post.getTags());
-      created.getTags().stream()
-          .forEach(postTag -> {
-            postTag.setPostId(created.getId());
-            PostTagDO postTagDO = mapper.convertValue(postTag, PostTagDO.class);
-            Optional<PostTagDO> createdTagDO = postTagDAO.create(postTagDO);
-            if (createdTagDO.isPresent()) {
-              postTag = mapper.convertValue(createdTagDO, PostTag.class);
-            } else {
-              log.warn(String.format("failed to create postTag: %s for post: %s", postTag, created));
-            }
-          });
+//      created.setTags(post.getTags());
+//      created.getTags().stream()
+//          .forEach(postTag -> {
+//            postTag.setPostId(created.getId());
+//            PostTagDO postTagDO = mapper.convertValue(postTag, PostTagDO.class);
+//            Optional<PostTagDO> createdTagDO = postTagDAO.create(postTagDO);
+//            if (createdTagDO.isPresent()) {
+//              postTag = mapper.convertValue(createdTagDO, PostTag.class);
+//            } else {
+//              log.warn(String.format("failed to create postTag: %s for post: %s", postTag, created));
+//            }
+//          });
       return Optional.of(created);
     }
     return Optional.empty();
@@ -74,12 +72,12 @@ public class PostRepo {
       return Optional.empty();
     } else {
       Post post = mapper.convertValue(postDO.get(), Post.class);
-      post.setTags(
-          postTagDAO.findByPostId(post.getId())
-              .stream()
-              .map(postTagDO -> mapper.convertValue(postTagDO, PostTag.class))
-              .collect(Collectors.toList())
-      );
+//      post.setTags(
+//          postTagDAO.findByPostId(post.getId())
+//              .stream()
+//              .map(postTagDO -> mapper.convertValue(postTagDO, PostTag.class))
+//              .collect(Collectors.toList())
+//      );
       return Optional.of(post);
     }
   }
@@ -89,13 +87,13 @@ public class PostRepo {
         .stream()
         .map(postDO -> mapper.convertValue(postDO, Post.class))
         .collect(Collectors.toList());
-    posts.stream().forEach(post -> {
-      List<PostTag> tags = postTagDAO.findByPostId(post.getId())
-          .stream()
-          .map(postTagDO -> mapper.convertValue(postTagDO, PostTag.class))
-          .collect(Collectors.toList());
-      post.setTags(tags);
-    });
+//    posts.stream().forEach(post -> {
+//      List<PostTag> tags = postTagDAO.findByPostId(post.getId())
+//          .stream()
+//          .map(postTagDO -> mapper.convertValue(postTagDO, PostTag.class))
+//          .collect(Collectors.toList());
+//      post.setTags(tags);
+//    });
     return posts;
   }
 }

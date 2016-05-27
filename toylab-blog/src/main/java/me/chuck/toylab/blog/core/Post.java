@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.MoreObjects;
 
 import java.util.Date;
-import java.util.List;
 
 import lombok.Data;
 
@@ -26,7 +25,7 @@ public class Post {
 
   private String authorName;
 
-  private List<PostTag> tags;
+//  private List<PostTag> tags;
 
   private Status status;
 
@@ -42,7 +41,7 @@ public class Post {
         .add("body", body)
         .add("authorId", authorId)
         .add("authorName", authorName)
-        .add("tags", tags)
+//        .add("tags", tags)
         .add("status", status)
         .add("gmtCreated", gmtCreated)
         .add("gmtUpdated", gmtUpdated)
@@ -52,8 +51,8 @@ public class Post {
   public enum Status {
     UNKNOWN(-1),
     DRAFT(0),
-    PUBLIC(1),
-    PRIVATE(2),
+    PRIVATE(1),
+    PUBLIC(2),
     DELETED(3),
     ;
 

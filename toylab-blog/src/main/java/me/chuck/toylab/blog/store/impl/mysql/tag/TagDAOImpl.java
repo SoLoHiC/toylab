@@ -42,6 +42,14 @@ public class TagDAOImpl extends AbstractDAO<TagDO> implements TagDAO {
   }
 
   @Override
+  public Optional<TagDO> findByName(String name) {
+    return Optional.ofNullable(
+        list(
+            namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findByName").setFetchSize(1)
+        ).get(0)
+    );
+  }
+  @Override
   public List<TagDO> findAll(int page, int size) {
     return list(
         namedQuery("me.chuck.toylab.blog.store.impl.mysql.tag.TagDO.findAll")

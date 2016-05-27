@@ -45,8 +45,8 @@ public class User {
 
   public enum Auth {
     UNKNOWN(-1),
-    GUEST(1),
-    ADMIN(2),
+    ADMIN(1),
+    GUEST(2),
     ;
 
     private final int value;

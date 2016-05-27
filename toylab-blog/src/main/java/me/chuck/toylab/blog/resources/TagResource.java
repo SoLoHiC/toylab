@@ -5,8 +5,8 @@ import com.google.inject.name.Named;
 import com.sun.jersey.api.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -38,12 +38,15 @@ public class TagResource {
     this.tagDAO = tagDAO;
   }
 
-  // TODO: tag resource methods
-
   @PUT
   @UnitOfWork
   public Response createTag(TagDO tagDO) {
-    return null;
+    Optional<TagDO> created = tagDAO.create(tagDO);
+    if (created.isPresent()) {
+      return Response.status(Response.Status.OK).entity(created.get()).build();
+    } else {
+      return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+    }
   }
 
   @GET
@@ -53,12 +56,13 @@ public class TagResource {
     return tagDAO.findById(tagId.get()).orElseThrow(() -> new NotFoundException("no such tag"));
   }
 
-  @DELETE
-  @Path("/{tagId}")
-  @UnitOfWork
-  public Response deleteTag(@PathParam("tagId")IntParam tagId) {
-    return null;
-  }
+  // TODO: tag resource delete method
+//  @DELETE
+//  @Path("/{tagId}")
+//  @UnitOfWork
+//  public Response deleteTag(@PathParam("tagId")IntParam tagId) {
+//    return Response.status(Response.Status.NO_CONTENT)
+//  }
 
   @GET
   @UnitOfWork

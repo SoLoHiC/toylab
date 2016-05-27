@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.sun.jersey.api.NotFoundException;
 
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -18,6 +17,7 @@ import io.dropwizard.jersey.params.IntParam;
 import lombok.extern.slf4j.Slf4j;
 import me.chuck.toylab.blog.core.PostTag;
 import me.chuck.toylab.blog.store.PostTagDAO;
+import me.chuck.toylab.blog.store.TagDAO;
 import me.chuck.toylab.blog.store.impl.mysql.tag.PostTagDO;
 
 /**
@@ -30,10 +30,13 @@ import me.chuck.toylab.blog.store.impl.mysql.tag.PostTagDO;
 public class PostTagResource {
 
   private PostTagDAO postTagDAO;
+  private TagDAO tagDAO;
 
   @Inject
-  public PostTagResource(@Named("postTagDAO") PostTagDAO postTagDAO) {
+  public PostTagResource(@Named("postTagDAO") PostTagDAO postTagDAO,
+      @Named("tagDAO")TagDAO tagDAO) {
     this.postTagDAO = postTagDAO;
+    this.tagDAO = tagDAO;
   }
 
   // TODO: postTag resource methods
@@ -53,10 +56,10 @@ public class PostTagResource {
     );
   }
 
-  @DELETE
-  @Path("/{postTagId}")
-  @UnitOfWork
-  public Response deletePostTag(@PathParam("postTagId")IntParam postTagId) {
-    return null;
-  }
+//  @DELETE
+//  @Path("/{postTagId}")
+//  @UnitOfWork
+//  public Response deletePostTag(@PathParam("postTagId")IntParam postTagId) {
+//    return null;
+//  }
 }
