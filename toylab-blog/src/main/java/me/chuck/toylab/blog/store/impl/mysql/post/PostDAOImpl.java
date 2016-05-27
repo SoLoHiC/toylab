@@ -39,7 +39,7 @@ public class PostDAOImpl extends AbstractDAO<PostDO> implements PostDAO {
   @Override
   public List<PostDO> findAll(int page, int pageSize) {
     return list(
-        namedQuery("me.chuck.toylab.blog.db.impl.post.PostDO.findAll")
+        namedQuery("me.chuck.toylab.blog.store.impl.mysql.post.PostDO.findAll")
             .setFirstResult(page * pageSize)
             .setMaxResults(pageSize)
     );

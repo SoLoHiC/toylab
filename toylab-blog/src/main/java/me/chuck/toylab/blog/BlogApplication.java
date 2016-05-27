@@ -13,11 +13,10 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import me.chuck.toylab.blog.core.CoreModule;
-import me.chuck.toylab.blog.resources.PostTagResource;
-import me.chuck.toylab.blog.resources.TagResource;
-import me.chuck.toylab.blog.store.DBModule;
 import me.chuck.toylab.blog.resources.PostResource;
+import me.chuck.toylab.blog.resources.TagResource;
 import me.chuck.toylab.blog.resources.UserResource;
+import me.chuck.toylab.blog.store.DBModule;
 
 /**
  * @author chuck
@@ -47,7 +46,7 @@ public class BlogApplication extends Application<BlogConfiguration> {
     environment.jersey().register(injector.getInstance(PostResource.class));
     environment.jersey().register(injector.getInstance(UserResource.class));
     environment.jersey().register(injector.getInstance(TagResource.class));
-    environment.jersey().register(injector.getInstance(PostTagResource.class));
+//    environment.jersey().register(injector.getInstance(PostTagResource.class));
   }
 
   @Override

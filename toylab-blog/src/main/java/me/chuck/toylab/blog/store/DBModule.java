@@ -14,6 +14,7 @@ import me.chuck.toylab.blog.store.impl.mysql.post.PostDAOImpl;
 import me.chuck.toylab.blog.store.impl.mysql.post.PostDO;
 import me.chuck.toylab.blog.store.impl.mysql.tag.PostTagDAOImpl;
 import me.chuck.toylab.blog.store.impl.mysql.tag.TagDAOImpl;
+import me.chuck.toylab.blog.store.impl.mysql.tag.TagDO;
 import me.chuck.toylab.blog.store.impl.mysql.user.UserDAOImpl;
 import me.chuck.toylab.blog.store.impl.mysql.user.UserDO;
 
@@ -24,7 +25,7 @@ import me.chuck.toylab.blog.store.impl.mysql.user.UserDO;
 public class DBModule extends AbstractModule {
 
   private final HibernateBundle<BlogConfiguration> hibernateBundle =
-      new HibernateBundle<BlogConfiguration>(PostDO.class, UserDO.class) {
+      new HibernateBundle<BlogConfiguration>(PostDO.class, UserDO.class, TagDO.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(BlogConfiguration blogConfiguration) {
           return blogConfiguration.getDatabase();

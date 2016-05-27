@@ -37,7 +37,7 @@ public class TagDO {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
 
-  @Column(name = "name", nullable = false)
+  @Column(name = "title", nullable = false)
   private String name;
 
   @Column(name = "color", nullable = false)
